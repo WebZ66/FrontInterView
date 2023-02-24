@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const ws = new WebSocket('ws://localhost:3000')
+      ws.onopen = function () {
+        console.log('发起连接请求')
+
+        ws.send('客户端主动发送消息')
+      }
+      ws.onmessage = function (msg) {
+        console.log('客户端接受到了消息' + msg)
+      }
+    </script>
+  </body>
+</html>
