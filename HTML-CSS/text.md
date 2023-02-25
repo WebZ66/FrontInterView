@@ -97,3 +97,51 @@ canvas是H5新增的画布，是基于js动态绘制的，基于像素进行逐�
 
 # CSS
 
+## 盒模型
+
+css盒模型：标准盒模型   盒子实际总宽度=border+padding+width+margin
+
+怪异盒模型：实际总宽度  width=border+paddding+content+margin
+
+
+
+### margin 负值问题
+
+margin-top:-20px 会影响自身向上移动，同时底下盒子也会向上移动
+
+margin-bottom:-20px 自身不会移动，但是会影响到下面盒子向上移动
+
+left：自身会，右侧盒子也会
+
+right：自身不会，影响右侧盒子
+
+
+
+## BFC 块级格式化上下文
+
+是一个独立的布局环境，可以理解为一个独立的容器，容器内部的布局不会受到外界布局的影响
+
+作用：将上下两个div包裹在不同的BFC中，可以解决margin重叠问题。可以解决父元素高度塌陷问题。
+
+触发条件：position：absolute、fixed。float不为none、overflow:hidden,display:inline-block|flex
+
+
+
+## z-index:auto和z-index：0
+
+后出现的覆盖前面的
+
+
+
+
+
+## requestAnimationFrame
+
+告诉浏览器你需要执行一个动画，在浏览器下一次重绘之前调用指定的更新函数来更新这个动画。
+
+优点：解决了定时器时间间隔不稳定的问题，因为js是单线程的，基于执行栈执行。定时器是宏任务，计时结束以后，才会将回调函数推入到宏任务队列中，需要等待执行栈空，且微任务队列执行完才会执行，这就导致了误差。而requestAnimationFrame它的时间间隔是固定的，一般16.7ms刷新一次调用一次回调函数，其自动实现了节流效果。
+
+②对DOM进行批量处理，减少了DOM操作。rqaf将每一帧中的DOM操作集中起来，放在一次回流或者重绘中完成。
+
+③对隐藏或不可见的元素是不会处理的，提高了性能
+
