@@ -51,7 +51,7 @@ H5新增了一系列的语义化标签，如<nav> <foot> <head> <aside>,优点�
 
 ②H5新增了音视频标签 video ，audio，通过source标签来导入外界的音视频资源
 
-③H5新增了两种客户端存储方式，sessionStorage和localStorage，sessionStorage存储的数据关闭浏览器后会消失，localStorage的不会消失。可以通过StorageEvent事件实现一个页面修改了storage存储的数据，另外一个打开的同源页面能检测到
+③H5新增了两种客户端存储方式，sessionStorage和localStorage，sessionStorage存储的数据关闭浏览器后会消失，localStorage的不会消失。可以通过StorageEvent事件实现一个页面修改了storage存储的数据，另外一个打开的同源页面能检测到。而vuex不可以
 
 ③新增了获取DOM元素的方式,选择器方式，document.querySelector('')
 
@@ -145,3 +145,60 @@ right：自身不会，影响右侧盒子
 
 ③对隐藏或不可见的元素是不会处理的，提高了性能
 
+
+
+## flex属性
+
+flex-direction:row|column 设置主轴和侧轴  row即水平方向为主轴
+
+flex-wrap:wrapped 是否换行
+
+flex-flow: 是flex-direction和flex-wrap的缩写
+
+justify-content:弹性项目在主轴上的排列方向
+
+align-items：侧轴上的排列方向
+
+align-contents：弹性项目换行后，该属性生效
+
+
+
+弹性项目的属性:
+
+flex-grow:弹性项目的放大比例 默认为0
+
+flex-shrink:弹性项目的缩小比例 默认为1
+
+flex-basis: 默认 auto 项目占据空间后，主轴的剩余空间。
+
+flex:1 实际上就是1 1 0% 即占据主轴剩余的所有空间
+
+
+
+
+
+## 动画效果
+
+c3通过@keyframes 其中可以通过百分比来定义动画过程
+
+也可以通过from to来定义
+
+
+
+transform  主要用于给元素变换，配合transition过度可以实现变换效果。transform有个优点，它只会引起浏览器的重绘，不会导致重排，所以尽量少用定位，多用transform
+
+
+
+em相对于自身的字体大小，如果没有定义，那么基础父元素的字体大小。
+
+rem相对于html根元素的字体大小
+
+
+
+
+
+## 竖直方向的padding和margin如果是百分比
+
+那么它依赖于的是父元素的宽度即width
+
+父元素width:300px  子元素margin-top:20% 那么实际是60px

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function myStore(name) {
+      this.name = name
+    }
+    let SingleTon = (function () {
+      let instance = null
+      return function (name) {
+        if (instance) return instance
+        return instance = new myStore(name)
+      }
+    })()
+    let a = new SingleTon('zds', 12)
+    //SingleTon接收的闭包，要清除闭包需要SingleTon=null
+    let b = new SingleTon('xqq', 13)
+    console.log(b)
+  </script>
+</body>
+
+</html>

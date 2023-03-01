@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    let _data = {
+      name: 'zds'
+    }
+
+    function Observer(data) {
+      if (!data || typeof data !== 'object') {
+        return
+      }
+      let keys = Object.keys(data)
+      keys.forEach((key) => {
+        defineReactive(data, key, data[key])
+      })
+    }
+
+    function defineReactive(data, key, value) {
+      //如果值还是对象的话就递归
+      Observer(value)
+      Object.defineProperty(data, key, {
+        set(newValue) {
+          value = newValue
+        },
+        get() {
+          return value
+        }
+      })
+    }
+    let data = Observer(_data)
+    console.log(_data);
+  </script>
+</body>
+
+</html>

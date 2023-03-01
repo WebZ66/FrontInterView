@@ -1,0 +1,28 @@
+  $themes: (
+    light: (
+      bg_color: red
+    ),
+    dark: (
+      bg_color: black
+    )
+  );
+
+  @mixin themify {
+    //这个混入就是为了只有满足html下属性是data-theme的时候
+    @each $theme-name, $theme-map in $themes {
+      $theme-map: $theme-map !global;
+      [data-theme='#{$theme-map}']& {
+        @content;
+      }
+    }
+  }
+
+  @function getValue($key) {
+    @return map-get($theme-map, $key);
+  }
+
+  @mixin bg_color($key) {
+    @include themify {
+      background-color: getValue($key);
+    }
+  }

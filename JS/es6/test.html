@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Foo() {
+      Foo.a = function () {
+        console.log(1)
+      }
+      this.a = function () {
+        console.log(2)
+      }
+    }
+    Foo.prototype.b = function () {
+      console.log(3)
+    }
+    Foo.a = function () {
+      console.log(4)
+    }
+    Foo.a() //4
+    let obj = new Foo()
+
+    obj.a()//2
+    obj.b = 3//3
+    Foo.a()
+  </script>
+</body>
+
+</html>
