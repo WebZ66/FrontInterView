@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function ListNode(val, next) {
+        this.val = val === undefined ? 0 : val
+        this.next = next === undefined ? null : next
+      }
+      var addTwoNumbers = function (l1, l2) {
+        let node = new ListNode()
+        let head = node
+        let carry = 0
+        while (l1 && l2) {
+          let value = parseInt((l1.val + l2.val + carry) % 10)
+          carry = parseInt((l1.val + l2.val + carry) / 10)
+          let node = new ListNode(value, null)
+          head.next = node
+          head = head.next
+          l1 = l1.next
+          l2 = l2.next
+        }
+        while (l1) {
+          let value = parseInt((l1.val + carry) % 10)
+          carry = parseInt((l1.val + carry) / 10)
+          let node = new ListNode(value, null)
+          head.next = node
+          head = head.next
+          l1 = l1.next
+        }
+        while (l2) {
+          let value = parseInt((l2.val + carry) % 10)
+          carry = parseInt((l2.val + carry) / 10)
+          let node = new ListNode(value, null)
+          head.next = node
+          head = head.next
+          l2 = l2.next
+        }
+        if (carry > 0) {
+          let node = new ListNode(carry, null)
+          head.next = node
+        }
+        return node.next
+      }
+    </script>
+  </body>
+</html>

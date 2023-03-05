@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      设置dp[i][j]为word1(0,i-1)到word2(0,j-1)的最少操作次数
+      如果word1[i-1]==word2[j-1] 只需要判断word1(0,i-2)到word2(0,j-2)的最少操作次数
+       那么dp[i][j]=dp[i-1][j-1]
+      如果word1[i-1]!=word2[j-1] 有三种方式
+        a.1 改变word1[i-1] dp[i][j]=dp[i-1][j-1]+1
+        a.2 删除 rose   ros  word1[i-1]!=word2[j-1] 那么就判断word1(0,i-2)是否与word2(0,j-1)匹配 dp[i][j]=dp[i-1][j]+1
+        a.3 添加 ros  rose 其实就是删除word2,只需要判断word1(0,i-1)是否与word2(0,j-2)匹配dp[i][j]=dp[i][j-1]+1
+      */
+      var minDistance = function (word1, word2) {
+        let m = word1.length
+        let n = word2.length
+        let dp = new Array(m + 1)
+        for (let i = 0; i < dp.length; i++) {
+          dp[i] = new Array(n + 1).fill(0)
+        }
+        //如果word1是空串
+        for (let j = 1; j <= n; j++) {
+          dp[0][j] = j
+        }
+        //如果word2是空串
+        for (let i = 1; i <= m; i++) {
+          dp[i][0] = 0
+        }
+        for (let i = 1; i <= m; i++) {
+          for (let j = 1; j <= n; j++) {
+            if (word1[i - 1] == word2[j - 1]) {
+              dp[i][j] = dp[i - 1][j - 1]
+            } else {
+              dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1)
+            }
+          }
+        }
+        return dp[m][n]
+      }
+    </script>
+  </body>
+</html>

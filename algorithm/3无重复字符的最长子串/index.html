@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var lengthOfLongestSubstring = function (s) {
+        //abbcdea
+        //可使用滑动窗口来实现，滑动窗口里存放不相同的字符。
+        //如果遇到相同的，就跳到之前的下一个。有个细节在于必须map.get(s[i])>=left 不然的话会回头
+        let left = 0
+        let map = new Map()
+        let maxLength = 0
+        for (let i = 0; i < s.length; i++) {
+          //必须大于等于left，因为left最初为0 a下标也是0  不能跳过呀
+          if (map.has(s[i]) && map.get(s[i]) >= left) {
+            left = map.get(s[i] + 1)
+          }
+          //每次移动i都要判断长度，更新map
+          maxLength = Math.max(maxLength, i - left + 1)
+          map.set(s[i])
+        }
+        return maxLength
+      }
+      console.log(lengthOfLongestSubstring('abcabcbb'))
+    </script>
+  </body>
+</html>

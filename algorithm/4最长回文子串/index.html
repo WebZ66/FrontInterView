@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var longestPalindrome = function (s) {
+        //最长回文子串 中心放缩
+        let res = 0
+        let str = ''
+        for (let i = 0; i < s.length; i++) {
+          let left = i - 1
+          let right = i + 1
+          let temp = 1
+          while (s[left] == s[i] && s[left]) {
+            left--
+            temp++
+          }
+          while (s[right] && s[right] == s[i]) {
+            right++
+            temp++
+          }
+          while (s[left] && s[right] && s[left] == s[right]) {
+            temp += 2
+            left--
+            right++
+          }
+          if (res < temp) {
+            res = temp
+            str = s.slice(left + 1, right)
+          }
+        }
+        console.log(str)
+      }
+      longestPalindrome('babad')
+    </script>
+  </body>
+</html>

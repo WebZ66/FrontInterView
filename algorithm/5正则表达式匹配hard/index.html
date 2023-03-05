@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      s='aa' p='a*'
+      定义dp[i][j]为s(0,i-1)的字符串与p(0,j-1)的字符串是否匹配。
+      ①不考虑* 如果s[i-1]==p[j-1]||p[j-1]=='.'即最外层匹配了，那么转换成小问题，判断里面的是否匹配即dp[i-1][j-1]是否匹配
+      dp[i][j]=dp[i-1][j-1] 
+      ②考虑*   如果p[j-1]=='*'，即不用考虑p[j-1]直接考虑s[i-1]与p[j-2]。
+         a 如果s[i-1]==p[j-2]||p[j-2]=='.'  那么*可以让p[j-2]重复0，1，多次，这要这三者任意一种情况能让它为true即可，所以用||
+          a.1  如果s='aab'  p='aabb*' s[i-1]==p[j-2]，让它干点一个b，这时候dp[i][j]就依赖于前面的aab与aab是否匹配,需要比较
+          s(0,i-1)与p(0,j-3)是否匹配
+          dp[i][j]=dp[i][j-2] 
+          a.2  s='aab' p='aab*' 因为s[i-1]与p[j-2]匹配，只需要一个，这时候依赖于s(0,i-2)是否与p(0,i-3)匹配
+          dp[i][j]=dp[i-1][j-2]    b*==b
+          a.3  s='aabbb'p='aab*'  *让b重复多次   可以换种思路，让s串删除几个 因为s[i-1]==p[j-2]，所以只需要s(0,i-2)是否与
+          p(0,j-1)是否匹配，因为重复多次，等价于多次删除，*还要再考虑
+          dp[i][j]=dp[i-1][j]
+
+          b 如果s[i-1]!=p[j-2]  这也别怕，因为p[j-1]=='*' 可以让p[j-2]重复0次直接考虑s(0,i-1)是否与p(0,j-3)是否匹配
+      */
+        var isMatch = function (s, p) {
+          let m = s.length
+          let n = p.length
+          let dp = new Array(m + 1)
+          for (let i = 0; i < dp.length; i++) {
+            dp[i] = new Array(n + 1).fill(false)
+          }
+          dp[0][0] = true
+          //初始化状态，当s为空串的时候，p串p[j-1]如果是*,那么依赖于p(0,j-3)是否匹配,因为P[j-2]被删除了
+          for (let j = 1; j <= n; j++) {
+            if (p[j - 1] == '*') {
+              dp[0][j] = dp[0][j - 2]
+            }
+          }
+          for (let i = 1; i <= m; i++) {
+            for (let j = 1; j <= n; j++) {
+              if (s[i - 1] == p[j - 1] || p[j - 1] == '.') {
+                //比较s(0,i-2)是否与
+                dp[i][j] = dp[i - 1][j - 1]
+              } else if (p[j - 1] == '*') {
+                if (s[i - 1] == p[j - 2] || p[j - 2] == '.') {
+                  //重复多次，即删除s，比较s(0,i-2)与p(0,j-1)
+                  dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j]
+                } else {
+                  //s[i-1]!=p[j-2]，删除p[j-2] 比较s(0,i-1)与p(0,j-3)
+                  dp[i][j] = dp[i][j - 2]
+                }
+              }
+            }
+          }
+          return dp[m][n]
+        }
+    </script>
+  </body>
+</html>
