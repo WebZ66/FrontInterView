@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var maxArea = function (height) {
+        //从两端往中间放缩，找出最短的
+        let left = 0
+        let right = height.length - 1
+        let min = 0
+        let area = 0
+        while (left <= right) {
+          min = Math.min(height[left], height[right])
+          area = Math.max(area, min * (right - left))
+          if (height[left] < height[right]) {
+            left++
+          } else {
+            right--
+          }
+        }
+        return area
+      }
+      console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]))
+    </script>
+  </body>
+</html>

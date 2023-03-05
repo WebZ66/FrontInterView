@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 主要就是2 2 2 2 j跳过的时候要注意 它如果是第二位，是可以等于i的  */
+      var fourSum = function (nums, target) {
+        nums.sort((a, b) => a - b)
+        let res = []
+        for (let i = 0; i < nums.length; i++) {
+          if (nums[i] == nums[i - 1]) continue
+          for (let j = i + 1; j < nums.length; j++) {
+            //比如2 2 2 2  i=2 j=2是可以的，j必须要大于i+1的时候才能跳
+            if (j > i + 1 && nums[j] == nums[j - 1]) continue
+            let left = j + 1
+            let right = nums.length - 1
+            while (left < right) {
+              let sum = nums[i] + nums[j] + nums[left] + nums[right]
+              if (sum < target) {
+                left++
+              } else if (sum > target) {
+                right--
+              } else {
+                while (nums[left] == nums[left + 1]) {
+                  left++
+                }
+                while (nums[right] == nums[right - 1]) {
+                  right--
+                }
+                res.push([nums[i], nums[j], nums[left], nums[right]])
+                left++
+                right--
+              }
+            }
+          }
+        }
+        return res
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      找出路径，很明显用的dfs
+      */
+      const letterCombinations = digits => {
+        if (!digits.length) return []
+        const map = { 2: 'abc', 3: 'def', 4: 'ghi', 5: 'jkl', 6: 'mno', 7: 'pqrs', 8: 'tuv', 9: 'wxyz' }
+        let path = []
+        let res = []
+        function dfs(path, start) {
+          //中止条件
+          if (start == digits.length) {
+            return res.push(path.join(''))
+          }
+          //选择本层元素  abc
+          let letter = map[digits[start]]
+          for (let i = 0; i < letter.length; i++) {
+            //处理节点
+            path.push(letter[i])
+            dfs(path, start + 1)
+            path.pop()
+          }
+        }
+
+        dfs(path, 0)
+        return res
+      }
+      letterCombinations('23')
+    </script>
+  </body>
+</html>
