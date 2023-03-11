@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let fn1 = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(1)
+          })
+        })
+      }
+      let fn2 = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(2)
+          })
+        })
+      }
+      let fn3 = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            reject(3)
+          })
+        })
+      }
+      let fn4 = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(4)
+          })
+        })
+      }
+      const myPromiseAll = (promises, limit) => {
+        let fail = 0
+        let sum = limit
+        let success = []
+        return new Promise((resolve, reject) => {
+          const run = () => {
+            let min = Math.min(promises.length, limit)
+            for (let i = 0; i < min; i++) {
+              limit--
+              let task = promises.shift()
+              task().then(
+                v => {
+                  limit++
+                  success.push(v)
+                  run()
+                },
+                r => {
+                  fail++
+                  if (fail == sum) {
+                    reject('error')
+                  }
+                }
+              )
+            }
+          }
+          run()
+          //注意，必须添加个条件判断，任务执行完后才resolve。因为任务可能是异步的
+          //微任务.then都还没执行呢，直接就执行了resolve(success)
+          if (!promises.length) {
+            resolve(success)
+          }
+        })
+      }
+      console.log(myPromiseAll([fn1, fn2, fn3, fn4], 2))
+    </script>
+  </body>
+</html>
