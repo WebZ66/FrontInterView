@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var combinationSum3 = function (k, n) {
+        let res = []
+        let path = []
+        function dfs(path, start, sum) {
+          if (sum > n) return
+          if (sum == n && path.length == k) {
+            return res.push([...path])
+          }
+          for (let i = start; i <= 9; i++) {
+            path.push(i)
+            dfs(path, i + 1, sum + i)
+            path.pop()
+          }
+        }
+        dfs(path, 1, 0)
+        return res
+      }
+      combinationSum3(3, 9)
+    </script>
+  </body>
+</html>

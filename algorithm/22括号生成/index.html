@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var generateParenthesis = function (n) {
+        //通过dfs，找出所有的路径
+        let res = []
+        let path = ''
+        function dfs(path, left, right) {
+          if (left > n || right > left || right > n) {
+            return
+          }
+          if (left + right == 2 * n) {
+            return res.push(path)
+          }
+          dfs(path + '(', left + 1, right)
+          dfs(path + ')', left, right + 1)
+        }
+        dfs(path, 0, 0)
+        return res
+      }
+      console.log(generateParenthesis(3))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var combinationSum = function (candidates, target) {
+        /* 
+        同一个数字可以被无限制的取。
+        */
+        let path = []
+        let res = []
+        function dfs(path, start, sum) {
+          if (sum > target) {
+            return
+          }
+          if (sum == target) {
+            return res.push([...path])
+          }
+          for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            /* 这和组合总和三的区别就在于三每个数字只能取一次，所以它dfs(path,i+1,sum+canidates[i]) */
+            dfs(path, i, sum + candidates[i])
+            path.pop()
+          }
+        }
+        dfs(path, 0, 0)
+        return res
+      }
+      combinationSum([2, 3, 5], 8)
+    </script>
+  </body>
+</html>

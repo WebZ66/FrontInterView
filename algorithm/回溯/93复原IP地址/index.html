@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var restoreIpAddresses = function (s) {
+        let path = []
+        let res = []
+        function dfs(path, start) {
+          if (path.length > 4) return
+          if (start == s.length && path.length == 4) {
+            return res.push([...path])
+          }
+          for (let i = start; i < start + 3; i++) {
+            let temp = s.slice(start, i + 1)
+            if (temp.length > 1 && temp[0] == '0') continue
+            if (parseInt(temp) > 255 || parseInt(temp) < 0) continue
+            path.push(temp)
+            dfs(path, i + 1)
+            path.pop()
+          }
+        }
+        dfs(path, 0)
+        console.log(res)
+      }
+      restoreIpAddresses('101023')
+    </script>
+  </body>
+</html>

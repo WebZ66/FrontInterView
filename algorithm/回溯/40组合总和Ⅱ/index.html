@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var combinationSum2 = function (candidates, target) {
+        //每个数字都只能使用一次,解集中不能重复。因此需要去重
+        let path = []
+        let res = []
+        let map = new Map()
+        candidates.sort((a, b) => a - b)
+        function dfs(path, start, sum) {
+          if (sum > target) return
+          if (sum == target) {
+            let temp = path.join('')
+            if (!map.has(temp)) {
+              res.push([...path])
+            }
+            return map.set(temp, temp)
+          }
+          for (let i = start; i < candidates.length; i++) {
+            path.push(candidates[i])
+            dfs(path, i + 1, sum + candidates[i])
+            path.pop()
+          }
+        }
+        dfs(path, 0, 0)
+        return res
+      }
+      combinationSum2([2, 5, 2, 1, 2], 5)
+    </script>
+  </body>
+</html>

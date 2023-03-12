@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function isPali(str) {
+        let arr = str.split('').reverse().join('')
+        if (str == arr) return true
+        return false
+      }
+
+      var partition = function (s) {
+        //分割类问题，其实也是dfs，通过slice裁剪，判断裁剪出来的是否满足，满足继续dfs
+        let res = []
+        let path = []
+        function dfs(path, start) {
+          //终止条件 一般来说分割类问题的终止条件都是 start==s.length 即下标到最后
+          if (start == s.length) {
+            return res.push([...path])
+          }
+          for (let i = start; i < s.length; i++) {
+            let temp = s.slice(start, i + 1)
+            //判断裁剪出来的是否回文
+            if (isPali(temp)) {
+              path.push(temp)
+              dfs(path, i + 1)
+              path.pop()
+            }
+          }
+        }
+        dfs(path, 0)
+        console.log(res)
+      }
+      partition('aab')
+    </script>
+  </body>
+</html>
