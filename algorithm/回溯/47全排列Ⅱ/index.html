@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var permuteUnique = function (nums) {
+        /*
+        和全排列Ⅰ 不同，有相同的数字，需要返回不重复的全排列
+        依然定义use 用来存储当前nums[i]是否被调用。
+        注意：这里use如果是对象就会报错了，因为有重复元素了，所以不如用use数组，通过index来判断是否用过
+        */
+        let path = []
+        let res = []
+        let use = []
+        let map = new Map()
+        function dfs(path) {
+          if (path.length == nums.length) {
+            let str = path.join('')
+            if (!map.has(str)) {
+              map.set(str)
+              return res.push([...path])
+            }
+          }
+          for (let i = 0; i < nums.length; i++) {
+            if (use[i]) continue
+            path.push(nums[i])
+            use[i] = true
+            dfs(path)
+            path.pop()
+            use[i] = false
+          }
+        }
+        dfs(path)
+        return res
+      }
+      console.log(permuteUnique([1, 1, 2]))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      nums递增，结果的path必须>=2
+      */
+      var findSubsequences = function (nums) {
+        let res = []
+        let map = new Map()
+        let path = []
+        function dfs(path, start) {
+          if (path.length >= 2) {
+            let str = path.toString()
+            if (!map.has(str)) {
+              res.push(path.slice())
+              map.set(str, str)
+            }
+          }
+          //这和map还是set没关系，关键在于下面那个if判断。
+          //||是左边条件满足，执行左边。不满足，直接执行右边 所以必须先判断path长度是否为0，如果不为0才能弹出
+          //至于为什么不用0 因为有负数
+          for (let i = start; i < nums.length; i++) {
+            let pop = path[path.length - 1]
+            if (path.length == 0 || nums[i] >= pop) {
+              path.push(nums[i])
+              dfs(path, i + 1)
+              path.pop()
+            }
+          }
+        }
+        dfs(path, 0)
+        return res
+      }
+      let arr = [0, 0, 0, 1]
+      console.log(findSubsequences([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
+    </script>
+  </body>
+</html>

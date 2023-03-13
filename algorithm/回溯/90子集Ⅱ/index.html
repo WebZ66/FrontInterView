@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      可能有重复元素，最后结果需要去重,类似于组合二
+      */
+      var subsetsWithDup = function (nums) {
+        nums.sort((a, b) => a - b)
+        let map = new Map()
+        let path = []
+        let res = []
+        function dfs(path, start) {
+          let str = path.join('')
+          if (!map.has(str)) {
+            map.set(str)
+            res.push([...path])
+          }
+          for (let i = start; i < nums.length; i++) {
+            path.push(nums[i])
+            dfs(path, i + 1)
+            path.pop()
+          }
+        }
+        dfs(path, 0)
+        return res
+      }
+      subsetsWithDup([1, 2, 2])
+    </script>
+  </body>
+</html>

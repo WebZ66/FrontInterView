@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var permute = function (nums) {
+        //注意，需要返回的是排列 [1,2,3]  [2,1,3]不同
+        let path = []
+        let res = []
+        let use = []
+        //定义一个use数组，判断在当前path中是否使用过当前数字
+        //当然也可以用对象 但是最好用数组，对象的话，全排列Ⅱ中[1,1,2] 重复元素不好处理>
+        //用use数组，直接就可以通过i 判断当前nums[i]是否使用过
+        function dfs(path) {
+          if (path.length == nums.length) {
+            return res.push([...path])
+          }
+          for (let i = 0; i < nums.length; i++) {
+            if (use[i]) continue
+            path.push(nums[i])
+            use[i] = true
+            dfs(path)
+            path.pop()
+            use[i] = false
+          }
+        }
+        dfs(path)
+        return res
+      }
+
+      console.log(permute([1, 2, 3]))
+    </script>
+  </body>
+</html>
