@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ①定义状态 dp[i]表示数字i拆分后，得到的最大乘积。那把i拆成几个数字呢？
+      ②举例 10可以拆分成2 8 这种两个数字的 dp[i]=j*(i-j)，那么8其实也可以继续拆 dp[i]=j*dp[i-j]即拆成多个数字的
+      j是从1开始遍历，拆分j   
+      得到状态转移方程 dp[i]=Math.max(j*(i-j),j*dp[i-j],dp[i])
+      ③初始化状态 dp[2]才有意义 dp[2]=1  i从3开始 j从1开始，每次<=parseInt(i/2)一般即可
+
+      */
+      var integerBreak = function (n) {
+        let dp = new Array(n + 1).fill(0)
+        dp[2] = 1
+
+        for (let i = 3; i <= n; i++) {
+          for (let j = 1; j <= parseInt(i / 2); j++) {
+            //至于为什么要与dp[i]进行比较，因为你每次是j从1开始拆分的啊，然后j一直到最后，得出一个最大的结果作为dp[i]的值
+            //括号里的dp[i]是上一次j得出的最大的结果
+            dp[i] = Math.max(dp[i], j * (i - j), j * dp[i - j])
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      integerBreak(10)
+    </script>
+  </body>
+</html>

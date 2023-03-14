@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ①定义状态dp[i] 表示i个节点构成的不同的二叉搜索树的个数
+      ②状态转移方程：
+      当前可以确定的是如果一个节点，只有一颗，两个节点，有两颗
+      当前节点的二叉搜索树的个数=左节点的二叉搜索树的个数* 右节点的二叉搜索树的个数
+      比如i==3  dp[3]=(1为节点)dp[0]*dp[2]+dp[1]*dp[1]+dp[2]*dp[0]
+      因为扣除了一个根节点，所以j从1开始
+      dp[i]+=dp[j-1][i-j]
+
+
+       */
+      var numTrees = function (n) {
+        let dp = new Array(n + 1).fill(0)
+        dp[2] = 2
+        dp[1] = 1
+        /* 注意dp[0]必须赋初值为1 不然*永远是0了 */
+        dp[0] = 1
+        for (let i = 3; i <= n; i++) {
+          for (let j = 1; j <= i; j++) {
+            dp[i] += dp[j - 1] * dp[i - j]
+          }
+        }
+        console.log(dp[n])
+      }
+      numTrees(5)
+    </script>
+  </body>
+</html>

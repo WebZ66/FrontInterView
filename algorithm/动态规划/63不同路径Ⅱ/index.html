@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ① dp[i][j]表示到(i,j)的格子的不同路径
+      ② 状态转移方程  因为只能下或者右 dp[i][j]=dp[i-1][j]+dp[i][j-1]
+      但是如果obstacleGrid[i][j]==1即有障碍物，那么dp[i][j]=0
+      ③初始化 i,j==0的时候路径都是1
+
+       */
+      var uniquePathsWithObstacles = function (obstacleGrid) {
+        let m = obstacleGrid.length
+        let n = obstacleGrid[0].length
+        let dp = new Array(m)
+        for (let i = 0; i < m; i++) {
+          dp[i] = new Array(n).fill(0)
+        }
+        for (let i = 0; i < m; i++) {
+          if (obstacleGrid[i][0] == 1) {
+            dp[i][0] = 0
+            break
+          }
+          dp[i][0] = 1
+        }
+        for (let j = 0; j < n; j++) {
+          if (obstacleGrid[0][j] == 1) {
+            dp[0][j] = 0
+            break
+          }
+          dp[0][j] = 1
+        }
+        for (let i = 1; i < m; i++) {
+          for (let j = 1; j < n; j++) {
+            if (obstacleGrid[i][j] == 1) {
+              dp[i][j] = 0
+            } else {
+              dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+            }
+          }
+        }
+        return dp[m - 1][n - 1]
+      }
+    </script>
+  </body>
+</html>

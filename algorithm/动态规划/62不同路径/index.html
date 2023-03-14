@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      机器人从左上角到右下角的不同路径 
+      ①设置dp[i][j] 表示从(0,0)到第(i,j)位置所有的不同路径
+      它从上一个节点到i,j 只能往下或者往右走一步，得到状态转移方程
+      ②dp[i][j]=dp[i-1][j] (往右走) +  dp[i][j-1] (往下走)
+      ③初始化状态方程  当i==0的时候，只能往右走 j==0的时候只能往下走
+      */
+      var uniquePaths = function (m, n) {
+        let dp = new Array(m)
+        for (let i = 0; i < dp.length; i++) {
+          dp[i] = new Array(n)
+        }
+        for (let i = 0; i < m; i++) {
+          dp[i][0] = 1
+        }
+        for (let j = 0; j < n; j++) {
+          dp[0][j] = 1
+        }
+        for (let i = 1; i < m; i++) {
+          for (let j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+          }
+        }
+        return dp[m - 1][n - 1]
+      }
+      uniquePaths(3, 7)
+    </script>
+  </body>
+</html>

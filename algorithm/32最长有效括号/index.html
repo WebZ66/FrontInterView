@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var longestValidParentheses = function (s) {
+        //定义一个栈，同时存入-1作为标记  它就类似于一个)
+        let stack = [-1]
+        let max = 0
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] == '(') {
+            //左括号直接索引入栈
+            stack.push(i)
+          } else {
+            //遇到右括号，先出栈一个，再找栈顶元素
+            stack.pop()
+            if (stack.length) {
+              let temp = i - stack[stack.length - 1]
+              max = Math.max(temp, max)
+            } else {
+              //如果标记都出栈了，那么就重新入栈
+              stack.push(i)
+            }
+          }
+        }
+        return max
+      }
+    </script>
+  </body>
+</html>

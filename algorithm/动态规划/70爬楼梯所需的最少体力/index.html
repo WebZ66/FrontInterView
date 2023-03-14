@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var minCostClimbingStairs = function (cost) {
+        /* 
+        ①设dp[i]为爬上i层台阶所耗费的最少的体力
+        ②状态转移方程  dp[i]可以从dp[i-1]或者dp[i-2]爬上来  dp[i]=Math.min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2])
+        ③初始化状态  dp[0]=0 dp[1]=0 可以从0或1开始，不需要耗费体力
+        */
+        let dp = new Array(cost.length + 1)
+        dp[0] = 0
+        dp[1] = 0
+        for (let i = 2; i <= cost.length; i++) {
+          dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+        }
+        return dp[dp.length - 1]
+      }
+      minCostClimbingStairs([10, 15, 20])
+    </script>
+  </body>
+</html>
