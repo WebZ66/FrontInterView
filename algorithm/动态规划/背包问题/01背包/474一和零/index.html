@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      strs是物品，可以任取，每个只能取一次
+      m,n都是背包容量
+      ①dp[i][j]表示有i个0 和j个1的最大子集的长度
+      ②递推公式 先计算出当前字符串，有多少个1和0。然后根据这些1和0的个数，找出装满子集的最大长度
+      
+      */
+      var findMaxForm = function (strs, m, n) {
+        let dp = new Array(m + 1)
+        let zeroNum
+        let oneNum
+        for (let i = 0; i < dp.length; i++) {
+          dp[i] = new Array(n + 1).fill(0)
+        }
+        for (let str of strs) {
+          zeroNum = 0
+          oneNum = 0
+          for (let c of str) {
+            if (c === '0') {
+              zeroNum++
+            } else {
+              oneNum++
+            }
+          }
+          for (let i = m; i >= zeroNum; i--) {
+            for (let j = n; j >= oneNum; j--) {
+              dp[i][j] = Math.max(dp[i][j], dp[i - zeroNum][j - oneNum] + 1)
+            }
+          }
+        }
+
+        return dp[m][n]
+      }
+    </script>
+  </body>
+</html>

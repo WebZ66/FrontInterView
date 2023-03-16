@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      转化思路：先计算出背包容量 即sum/2 ,然后装满这个背包，判断其价值是否贴近这个背包容量，
+      最后×2 因为是两个背包
+      */
+      var lastStoneWeightII = function (stones) {
+        let sum = stones.reduce((p, i) => (p += i))
+        let bagSize = parseInt(sum / 2)
+        let dp = new Array(bagSize + 1).fill(0)
+        for (let i = 0; i < stones.length; i++) {
+          for (let j = bagSize; j >= stones[i]; j--) {
+            dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i])
+          }
+        }
+        return sum - dp[bagSize] * 2
+      }
+      lastStoneWeightII([2, 7, 4, 1, 8, 1])
+    </script>
+  </body>
+</html>

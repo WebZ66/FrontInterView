@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      分割nums数组，使得两个子集和相等
+      */
+      var canPartition = function (nums) {
+        nums.sort((a, b) => a - b)
+        let sum = nums.reduce((pre, item) => {
+          return (pre += item)
+        }, 0)
+        if (sum % 2 != 0) return false
+        let target = sum / 2
+        /*
+        转换思路，取nums里的数字，每个只能取一次。
+        背包容量即为target,重量即为nums，价值也为nums，背包如果正好装满，说明找到了。所以只要判断最后
+        j==target的时候，价值dp[j]是否等于target即可
+        */
+        let bagSize = target
+        let dp = new Array(bagSize + 1).fill(0)
+        for (let i = 0; i < nums.length; i++) {
+          for (let j = bagSize; j >= nums[i]; j--) {
+            dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i])
+          }
+        }
+        //最后装满的时候，判断价值是否等于target即可
+        if (dp[bagSize] == target) {
+          return true
+        } else {
+          return false
+        }
+      }
+      canPartition([1, 5, 11, 5])
+    </script>
+  </body>
+</html>

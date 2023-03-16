@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var findTargetSumWays = function (nums, target) {
+        /* 
+        任取nums数组里的数字，每个只能取一次，结果要为target。
+        转化思路：全部加的和认为是left  全部减的是right
+        left+right=target
+        left-right=sum
+        left=(target+sum)/2
+        即背包容量为left，求装满背包有几种组合方式
+        */
+        let sum = nums.reduce((p, i) => (p += i))
+        if ((target + sum) % 2) {
+          return 0
+        }
+        let bagSize = (sum + target) / 2
+        let dp = new Array(bagSize + 1).fill(0)
+        /* 注意，组合dp[0]=1 */
+        dp[0] = 1
+        for (let i = 0; i < nums.length; i++) {
+          for (let j = bagSize; j >= nums[i]; j--) {
+            dp[j] += dp[j - nums[i]]
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      findTargetSumWays([7, 9, 3, 8, 0, 2, 4, 8, 3, 9], 0)
+    </script>
+  </body>
+</html>
