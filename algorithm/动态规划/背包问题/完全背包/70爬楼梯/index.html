@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var climbStairs = function (n) {
+        /* 
+        爬楼梯最基础的解法 dp[j]=dp[j-1]+dp[j-2]  
+        进阶：n不就是bagSize，物品[1,2] 1，2可以任取，问到楼顶有几种方法即求排列  先跳1再跳2 和先2再1不一样
+        */
+        let dp = new Array(n + 1).fill(0)
+        dp[0] = 1
+        let weight = [1, 2]
+        //排列，外层背包，内层物品 需要if判断
+        for (let j = 0; j <= n; j++) {
+          for (let i = 0; i < weight.length; i++) {
+            if (j >= weight[i]) {
+              dp[j] += dp[j - weight[i]]
+            }
+          }
+        }
+        console.log(dp)
+      }
+      climbStairs(3)
+    </script>
+  </body>
+</html>

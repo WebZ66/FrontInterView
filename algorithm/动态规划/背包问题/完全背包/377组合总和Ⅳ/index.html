@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var combinationSum4 = function (nums, target) {
+        /* 
+        注意，这求的是排列数  完全背包求排列 外层背包，内层物品,j从0开始了
+        */
+        let bagSize = target
+        let dp = new Array(bagSize + 1).fill(0)
+        dp[0] = 1
+        for (let j = 0; j <= bagSize; j++) {
+          for (let i = 0; i < nums.length; i++) {
+            if (j >= nums[i]) {
+              //对于排列，外层是背包容量且j从0开始遍历
+              //这也就导致了需要多一个if判断 j>=weight[i]
+              dp[j] += dp[j - nums[i]]
+            }
+          }
+        }
+        console.log(dp)
+      }
+      combinationSum4([1, 2, 3], 4)
+    </script>
+  </body>
+</html>

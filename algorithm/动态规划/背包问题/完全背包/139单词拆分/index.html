@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+      从wordDict中选取字符，判断是否能装满s ，其实这是一道很明显的完全背包题目。而且这是有顺序的，所以是排列
+      ①dp[i]表示字符长度为i时，可以从wordDict中选取到字符组合成s
+      */
+      var wordBreak = function (s, wordDict) {
+        let bagSize = s.length
+        let dp = new Array(bagSize + 1).fill(false)
+        dp[0] = true
+        for (let j = 0; j <= bagSize; j++) {
+          //排列，外层背包，内层物品
+          for (let i = 0; i < wordDict.length; i++) {
+            if (j >= wordDict[i].length) {
+              /* j是背包容量，对应截取的字符是要少1的（0,j-1） */
+              let tempStr = s.slice(j - wordDict[i].length, j)
+              if (wordDict.includes(tempStr) && dp[j - wordDict[i].length]) {
+                //截取的剩余字符要在wordDict中，之前的那一半也要在
+                dp[j] = true
+              }
+            }
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      wordBreak('applepenapple', ['apple', 'pen'])
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var change = function (amount, coins) {
+        /*
+        问的是组合方式 coins是物品可以任取，且每个可以取多次，背包容量是amount
+        dp[0]=1  dp[j]+=dp[j-weight[i]]
+        */
+        let bagSize = amount
+        let dp = new Array(bagSize + 1).fill(0)
+        dp[0] = 1
+        for (let i = 0; i < coins.length; i++) {
+          for (let j = coins[i]; j <= bagSize; j++) {
+            dp[j] += dp[j - coins[i]]
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      change(5, [1, 2, 5])
+    </script>
+  </body>
+</html>

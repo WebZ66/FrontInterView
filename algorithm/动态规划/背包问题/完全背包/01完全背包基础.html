@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function fs(weight, value, bagSize) {
+        //定义dp数组，dp[i][j]表示对于(0,i)件物品，装满容量为j的最大价值
+        let dp = new Array(bagSize + 1).fill(0)
+        for (let i = 0; i < weight.length; i++) {
+          for (let j = weight[i]; j <= bagSize; j++) {
+            dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i])
+          }
+        }
+        console.log(dp)
+      }
+      fs([1, 3, 4], [15, 20, 30], 4)
+    </script>
+  </body>
+</html>

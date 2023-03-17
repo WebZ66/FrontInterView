@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      转化思路：完全平方数就是物品，背包容量就是n 求装满背包的最少物品数
+      物品的重量就是 对应的平方
+      比如n==12  那么i就可以1 4 9 所以物品就是[1,4,9]  
+      */
+      var numSquares = function (n) {
+        let bagSize = n
+        let dp = new Array(bagSize + 1).fill(Infinity)
+        dp[0] = 0
+        for (let i = 0; i ** 2 <= n; i++) { //1 4, 9
+          for (let j = i ** 2; j <= bagSize; j++) {//对应的重量也就是i**2
+            dp[j] = Math.min(dp[j], dp[j - i ** 2] + 1)
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      numSquares(12)
+    </script>
+  </body>
+</html>
