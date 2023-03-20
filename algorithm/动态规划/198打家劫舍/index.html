@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var rob = function (nums) {
+        //设dp[i]从(0,i)间房偷到的最大金额
+        //状态转移方程 dp[i]依赖于前天或者是昨天
+        /* 
+          dp[i]=Math.max(dp[i-2]+nums[i],dp[i-1])
+        */
+        //初始化 dp[0]=0 i从3开始，dp[1]=nums[0] dp[2]=Math.max(nums[0],nums[1]) dp[3]=Math.max
+        let dp = new Array(nums.length + 1).fill(0)
+        dp[0] = 0
+        dp[1] = nums[0]
+        dp[2] = Math.max(nums[0], nums[1])
+        for (let i = 3; i < dp.length; i++) {
+          dp[i] = Math.max(dp[i - 2] + nums[i - 1], dp[i - 1])
+        }
+        return dp[dp.length - 1]
+      }
+      console.log(rob([1, 2, 3, 1]))
+    </script>
+  </body>
+</html>

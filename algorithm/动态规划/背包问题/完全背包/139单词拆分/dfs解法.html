@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var wordBreak = function (s, wordDict) {
+        let path = []
+        let res = []
+        function dfs(path, start) {
+          if (start == s.length) {
+            return res.push([...path].join(''))
+          }
+          for (let i = start; i < s.length; i++) {
+            let str = s.slice(start, i + 1)
+            if (wordDict.includes(str)) {
+              path.push(str)
+              dfs(path, i + 1)
+              path.pop()
+            }
+          }
+        }
+        dfs(path, 0)
+        let str = res[0]
+        if (str == s) return true
+        return false
+      }
+      wordBreak('leetcode', ['leet', 'code'])
+      /*
+      首先我会考虑dfs，有点类似于分割字符串，分割一部分判断是否属于wordDict,这会超出时间限制
+      */
+    </script>
+  </body>
+</html>

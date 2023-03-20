@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      dfs不行，换个思路。wordDict把它理解成物品，每件物品可以任取n件，s就是背包容量，这就转换成一个完全背包问题。
+      问最后是否能装满背包。
+      ①dp[j]表示长度为j的从(0,j-1)的字符s是否能用wordDict中的值表示
+      ②状态转移方程。根据递推关系 后面一个字符temp=s.slice(j-wordDict[i].length,j)
+      如果temp在里面，且前面一个字符dp[j-wordDict[i].length]==true 即也在里面，那么就为true
+      ③初始化 全为false  dp[0]=true 因为长度为0 算空数组肯定在
+      ④遍历方向，因为是排列，外层背包，内层物品
+      */
+      var wordBreak = function (s, wordDict) {
+        let bagSize = s.length
+        let dp = new Array(bagSize + 1).fill(false)
+        dp[0] = true
+        for (let j = 0; j <= bagSize; j++) {
+          for (let i = 0; i < wordDict.length; i++) {
+            if (j >= wordDict[i].length) {
+              //因为j是长度，对应下标其实是j-1
+              let tempStr = s.slice(j - wordDict[i].length, j)
+              if (wordDict.includes(tempStr) && dp[j - wordDict[i].length]) {
+                dp[j] = true
+              }
+            }
+          }
+        }
+        return dp[dp.length - 1]
+      }
+      wordBreak('leetcode', ['leet', 'code'])
+    </script>
+  </body>
+</html>
