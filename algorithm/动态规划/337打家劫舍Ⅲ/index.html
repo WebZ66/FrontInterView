@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var rob = function (root) {
+        //需要后序遍历从叶子节点开始
+        //[偷了当前节点的最大值，不偷当前节点的最大值]
+        function postOrder(root) {
+          if (!root) return [0, 0]
+          //left为左子节点，right为右子节点 left[0]为不偷左子节点。left[1]为偷左子节点
+          let left = postOrder(root.left)
+          let right = postOrder(root.right)
+          //偷了根节点的话,那么左右子节点不能偷
+          let withRoot = root.val + left[0] + right[0]
+          let outRoot = Math.max(left[0], left[1]) + Math.max(right[0], right[1])
+          return [outRoot, withRoot]
+        }
+        let arr = postOrder(root)
+        return Math.max(...arr)
+      }
+    </script>
+  </body>
+</html>
