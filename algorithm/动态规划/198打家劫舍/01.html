@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var rob = function (nums) {
+        //不能偷相邻的
+        /* 
+        定义dp[i]为从(0,i)间房屋偷到的最大价值
+        ②dp[i]依赖于之前的状态如果昨天偷了，今天不能偷，前天偷了今天可以偷
+        dp[i]=Math.max(dp[i-2]+nums[i-1],dp[i-1])
+        ③初始化状态
+        dp[0]=0 dp[1]=nums[1]  dp[2]=Math.max(nums[0],nums[1])
+        dp[3]=Math.max(dp[1]+nums[2],dp[2])
+        ④循环顺序
+        从左到右 
+         */
+        
+      }
+    </script>
+  </body>
+</html>

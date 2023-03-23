@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var maxProfit = function (prices) {
+        /*
+        只能在一天买入，一天卖出，只需要找出前n天最低价格即可
+        */
+        let minPrice = prices[0]
+        let profit = 0
+        for (let i = 0; i < prices.length; i++) {
+          minPrice = Math.min(prices[i], minPrice)
+          profit = Math.max(profit, prices[i] - minPrice)
+        }
+        return profit
+      }
+    </script>
+  </body>
+</html>

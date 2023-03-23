@@ -4,8 +4,9 @@
 
 > 推荐安装 node -v:16.15.0|ts-node|nodemon。  
 
-本文笔记都是 md 格式，clone 下来后推荐 Typora 打开&#x1F680;
+本文面试题汇总都是 md 格式，clone 下来后推荐 Typora 打开
+
 
 &#x1F680;&#x1F680;持续更新中 
 
-[相关笔记](https://juejin.cn/post/7176518277261164605)
+&#x1F680;[算法相关笔记](https://juejin.cn/post/7176518277261164605)
