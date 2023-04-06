@@ -9,20 +9,25 @@
   <body>
     <script>
       function fs(root) {
-        if (!root) return null
-        //因为根节点的最大价值取决于左右子节点，所以必须先遍历左右子节点。后序遍历
+        /*
+       根节点如果偷，那么子节点一定不难偷
+       根节点如果不偷，那么左右子节点可以选择性偷 ，毕竟有这种情况
+        10
+       1   1
+       2   2
+       5   5
+       left[0]表示不偷左子节点 left[1]表示偷
+       */
         function postOrder(root) {
-          //[不包含当前节点，包含当前节点]
           if (!root) return [0, 0]
           let left = postOrder(root.left)
           let right = postOrder(root.right)
-          /* 
-          如果选取当前节点，那么左右子节点一定不能选
-          */
           let withRoot = root.val + left[0] + right[0]
           let outRoot = Math.max(left[0], left[1]) + Math.max(right[0], right[1])
           return [outRoot, withRoot]
         }
+        let arr = postOrder(root)
+        return Math.max(...arr)
       }
     </script>
   </body>
