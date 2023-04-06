@@ -25,6 +25,13 @@
           for (let i = 0; i < wordDict.length; i++) {
             if (j >= wordDict[i].length) {
               //因为j是长度，对应下标其实是j-1
+              //每次都需要遍历物品，背包容量j-每个物品的长度。这样可以找出剩余背包容量可存放的东西
+              //如果剩余可存放的东西在数组里，且其前提为true，结果为true
+              //因为如果在背包里，它的下标一定是背包容量-其余物品的长度
+              /* 
+              比如applepen    j=8 i=0 s(3,8) false
+                              j=8 i=1 s(5,8) dp[5](即apple)=true 所以dp[8]=true
+              */
               let tempStr = s.slice(j - wordDict[i].length, j)
               if (wordDict.includes(tempStr) && dp[j - wordDict[i].length]) {
                 dp[j] = true

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      背包容量s  物品wordDict 任取物品最后是否能装满背包
+      ①dp[i]表示s(0,i)是否能用wordDict中的物品表示
+      ②状态推断 如果0-j能用物品表示，那么只需要判断剩余字符j-s.length-1是否存在wordDict中
+      ③初始化状态 dp[0]=true
+      ④这是排列问题 所以外层背包，内层物品
+      */
+      var wordBreak = function (s, wordDict) {
+        let bagSize = s.length
+        let dp = new Array(bagSize + 1).fill(false)
+        dp[0] = true
+        for (let j = 0; j <= bagSize; j++) {
+          for (let i = 0; i < wordDict.length; i++) {
+            if (j >= wordDict[i].length) {
+              //通过背包容量-其余物品的长度。可以找出剩余背包容量可存放的东西。 如果可存放的东西是在数组里，且dp前面也为true
+              //后面也为true
+              let tempStr = s.slice(j - wordDict[i].length, j)
+              if (wordDict.includes(tempStr) && dp[j - wordDict.length]) {
+                dp[j] = true
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
